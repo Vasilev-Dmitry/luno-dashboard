@@ -1,9 +1,9 @@
 'use client'
 
-import ConnectWallet from "@/components/auth/ConnectWallet";
+import AuthPage from "@/components/auth/AuthPage";
 
 export default function Auth() {
     return(
-        <ConnectWallet />
+        <AuthPage />
     );
 }

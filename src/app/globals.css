@@ -3,3 +3,11 @@
 body {
     background-color: black;
 }
+
+@keyframes shake {
+    0% { transform: rotate(0deg); }
+    25% { transform: rotate(12deg); }
+    50% { transform: rotate(-12deg); }
+    75% { transform: rotate(12deg); }
+    100% { transform: rotate(0deg); }
+}

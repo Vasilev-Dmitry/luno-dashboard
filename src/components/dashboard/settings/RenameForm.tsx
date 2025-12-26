@@ -1,4 +1,3 @@
-import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useRenameProfile } from '@/api/hooks/useSettings';
 
@@ -8,7 +7,6 @@ type FormData = {
 
 export default function RenameForm() {
     const {mutate, isPending} = useRenameProfile();
-
     const {register, handleSubmit, formState: { errors }} = useForm<FormData>({});
 
     const onSubmit = (data: FormData) => {
@@ -31,7 +29,7 @@ export default function RenameForm() {
             <button
                 type="submit"
                 disabled={isPending}
-                className="flex items-center justify-center bg-blue-600 text-white h-10 px-4 rounded hover:bg-blue-700 disabled:bg-gray-400 transition-colors"
+                className="text-white py-2 px-4 bg-blue-500 rounded-lg cursor-pointer"
             >
                 {isPending ? "Сохранение..." : "Обновить имя"}
             </button>

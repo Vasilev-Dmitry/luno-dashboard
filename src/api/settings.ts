@@ -5,7 +5,7 @@ export const getProfile = async() => {
     return data;
 }
 
-export const Logout = async() => {
+export const logout = async() => {
     await router.post("/profile/logout")
 }
 

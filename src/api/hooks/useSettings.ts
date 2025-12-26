@@ -1,11 +1,12 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import {getProfile} from '@/api/settings';
-import {Rename} from "@/api/settings";
+import { getProfile } from '@/api/settings';
+import { Rename } from "@/api/settings";
 
 export const useGetProfile = () => {
   return useQuery({
     queryKey: ['profile'],
     queryFn: getProfile,
+    retry: false,
   });
 };
 
@@ -17,8 +18,5 @@ export const useRenameProfile = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['profile'] });
     },
-    onError: (error: any) => {
-      console.error("Ошибка при смене имени:", error.response?.data?.detail || error.message);
-    }
     });
 };
