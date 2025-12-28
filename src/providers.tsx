@@ -1,19 +1,18 @@
-'use client';
+"use client";
 
 import {
+    isServer,
     QueryClient,
     QueryClientProvider,
-    isServer,
-} from '@tanstack/react-query';
+} from '@tanstack/react-query'
+
 import { usePathname } from 'next/navigation';
-import {
+import React, {
     createContext,
-    useContext,
     useState,
     useEffect,
     useCallback,
     ReactNode,
-    PropsWithChildren, useRef,
 } from 'react';
 import { useRouter } from 'next/navigation';
 import { verify } from '@/api/auth';
@@ -75,7 +74,6 @@ function AuthProvider({ children }: { children: ReactNode }) {
 
     const apiFetch = useCallback(
         async <T,>(fn: () => Promise<T>): Promise<T> => {
-            // 🔑 На платёжных страницах не делаем /auth/verify вообще
             if (isPublicPayment) {
                 return fn();
             }
@@ -130,7 +128,7 @@ function AuthProvider({ children }: { children: ReactNode }) {
     );
 }
 
-function createQueryClient() {
+function makeQueryClient() {
     return new QueryClient({
         defaultOptions: {
             queries: {
@@ -142,19 +140,18 @@ function createQueryClient() {
     });
 }
 
-let browserQueryClient: QueryClient | null = null;
+let browserQueryClient: QueryClient | undefined = undefined
 
 function getQueryClient() {
     if (isServer) {
-        return createQueryClient();
+        return makeQueryClient();
+    } else {
+        if (!browserQueryClient) browserQueryClient = makeQueryClient()
+        return browserQueryClient
     }
-    if (!browserQueryClient) {
-        browserQueryClient = createQueryClient();
-    }
-    return browserQueryClient;
 }
 
-export function Providers({ children }: PropsWithChildren) {
+export function Providers({ children }: { children: React.ReactNode }) {
     const queryClient = getQueryClient();
 
     return (
@@ -163,9 +160,3 @@ export function Providers({ children }: PropsWithChildren) {
         </QueryClientProvider>
     );
 }
-
-export const useAuth = () => {
-    const ctx = useContext(AuthContext);
-    if (!ctx) throw new Error('useAuth must be used within AuthProvider');
-    return ctx;
-};

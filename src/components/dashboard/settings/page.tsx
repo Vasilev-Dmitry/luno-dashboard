@@ -30,8 +30,8 @@ export default function Settings() {
 
     return (
         <div>
-            <p className="text-white">Name: {profile.name}</p>
-            <p className="text-white">Wallet: {profile.wallet}</p>
+            <p className="text-3xl text-white font-medium">{profile.name}</p>
+            <p className="text-white">{profile.wallet}</p>
 
             <RenameForm />
 

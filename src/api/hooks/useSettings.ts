@@ -3,20 +3,20 @@ import { getProfile } from '@/api/settings';
 import { Rename } from "@/api/settings";
 
 export const useGetProfile = () => {
-  return useQuery({
-    queryKey: ['profile'],
-    queryFn: getProfile,
-    retry: false,
-  });
+    return useQuery({
+        queryKey: ['profile'],
+        queryFn: getProfile,
+        retry: false,
+    });
 };
 
 export const useRenameProfile = () => {
-  const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
 
-  return useMutation({
-    mutationFn: Rename,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['profile'] });
-    },
+    return useMutation({
+        mutationFn: Rename,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['profile'] });
+        },
     });
 };
